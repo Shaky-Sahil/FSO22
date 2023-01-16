@@ -43,8 +43,9 @@ const App = () => {
   const [votes,setVotes] = useState(Array(7).fill(0))
   return (
     <div>
+      <h1>Anecdote of the day</h1>
       {anecdotes[selected]}
-      <br/>
+      <br/> 
       <button onClick={handleVote}>vote</button>
       <button onClick={()=>setSelected(Math.floor((Math.random() * 7)))}>next anecdote</button>
       <Maxvotes votes={votes} anecdotes={anecdotes} />
