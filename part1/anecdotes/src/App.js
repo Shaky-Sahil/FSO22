@@ -1,6 +1,26 @@
 import { useState } from 'react'
 
 
+/*const Maxvotes = (props) => {
+  //const [max,setMax] = useState(0)
+  let max=0
+  const findMaxVotes = () => {
+    for(let i=0;i<props.votes.length;i++){
+      if(props.votes[i]>props.votes[max]){
+        max=i
+      }
+      i++;
+    }
+    return max
+   }
+   return(
+    <>
+    <h1>Anecdote with most votes</h1>
+    <div>{props.anecdotes[findMaxVotes()]}</div>
+    </>
+   )
+}*/
+
 const App = () => {
   const anecdotes = [
     'If it hurts, do it more often.',
@@ -15,17 +35,32 @@ const App = () => {
     const newvotes = [...votes]
     newvotes[selected]++
     setVotes(newvotes)
+    //findMaxVotes()
+    console.table(votes)
    }
+
+   const findMaxVotes = () => {
+    for(let i=0;i<votes.length;i++){
+      if(votes[i]>votes[max]){
+        setMax(i)
+      }
+    }
+    return max
+   }
+
    
    
   const [selected, setSelected] = useState(0)
   const [votes,setVotes] = useState(Array(7).fill(0))
+  const [max,setMax] = useState(0)
   return (
     <div>
       {anecdotes[selected]}
       <br/>
       <button onClick={handleVote}>vote</button>
       <button onClick={()=>setSelected(Math.floor((Math.random() * 7)))}>next anecdote</button>
+      <h1>Anecdote with most votes</h1>
+      <div>{anecdotes[findMaxVotes()]}</div>
     </div>
   )
 }
