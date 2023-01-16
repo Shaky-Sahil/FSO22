@@ -12,14 +12,14 @@ const App = () => {
     'Programming without an extremely heavy use of console.log is same as if a doctor would refuse to use x-rays or blood tests when diagnosing patients.'
   ]
   const handleVote = () => {
-    votes = [...votes]
-    votes[selected] += 1
-    console.table(votes)
+    const newvotes = [...votes]
+    newvotes[selected]++
+    setVotes(newvotes)
    }
    
    
   const [selected, setSelected] = useState(0)
-  let votes = Array(7).fill(0)
+  const [votes,setVotes] = useState(Array(7).fill(0))
   return (
     <div>
       {anecdotes[selected]}
