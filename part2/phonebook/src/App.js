@@ -4,7 +4,7 @@ const App = () => {
   const [persons, setPersons] = useState([
     { name: 'Arto Hellas' }
   ]) 
-  const [newName, setNewName] = useState('enter name')
+  const [newName, setNewName] = useState('')
 
   const updateName = (e) => {
     setNewName(e.target.value)
@@ -12,11 +12,16 @@ const App = () => {
 
   const addName = (e) => {
     e.preventDefault()
-    console.log("default prevented")
     const newPerson = {name:newName}
     console.log(newPerson)
-    setPersons(persons.concat(newPerson))
-    setNewName('enter name')
+    checkDuplicate(newName) === true ? alert(`${newName} is a duplicate name`) : setPersons(persons.concat(newPerson))
+    
+    setNewName('')
+  }
+
+  const checkDuplicate = (newName) => {
+    const duplicates = persons.filter(p=>p.name === newName)
+    return duplicates.length===0? false : true
   }
 
   return (
