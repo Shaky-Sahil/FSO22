@@ -25,9 +25,8 @@ const App = () => {
   const addPerson = (e) => {
     e.preventDefault()
     const newPerson = {name:newName,number:newPhone}
-    console.log(newPerson)
-    console.log(persons)
     checkDuplicate(newName) === true ? alert(`${newName} is a duplicate name`) : setPersons(persons.concat(newPerson))
+    axios.post('http://localhost:3001/persons',newPerson)
     setNewName('')
     setNewPhone('')
   }
