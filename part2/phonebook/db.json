@@ -29,6 +29,21 @@
       "name": "kobe",
       "number": "8-24",
       "id": 6
+    },
+    {
+      "name": "davis",
+      "number": "3",
+      "id": 7
+    },
+    {
+      "name": "westbrook",
+      "number": "0",
+      "id": 8
+    },
+    {
+      "name": "jordan ",
+      "number": "23-45-23",
+      "id": 9
     }
   ]
 }

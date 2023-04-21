@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import Filter from './components/Filter'
 import PersonForm from './components/PersonForm'
 import Persons from './components/Persons'
-import axios from 'axios'
+import noteService from './services/notes'
 
 const App = () => {
   const [persons, setPersons] = useState([]) 
@@ -14,7 +14,7 @@ const App = () => {
 
   useEffect(
     () => {
-    axios.get('http://localhost:3001/persons').then(Response=>setPersons(Response.data))
+    noteService.getAll().then(Response=>setPersons(Response))
     }
    ,[])
 
@@ -25,8 +25,9 @@ const App = () => {
   const addPerson = (e) => {
     e.preventDefault()
     const newPerson = {name:newName,number:newPhone}
-    checkDuplicate(newName) === true ? alert(`${newName} is a duplicate name`) : setPersons(persons.concat(newPerson))
-    axios.post('http://localhost:3001/persons',newPerson)
+    checkDuplicate(newName) === true ? alert(`${newName} is a duplicate name`) : 
+    noteService.create(newPerson)
+    .then(response=>setPersons(persons.concat(response)))
     setNewName('')
     setNewPhone('')
   }
