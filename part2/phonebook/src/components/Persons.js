@@ -1,7 +1,7 @@
 const Persons = ({personsToShow}) => {
     return(
         <div>
-        {personsToShow.map((p)=><li key={p.name}>{p.name} {p.phone}</li>) }
+        {personsToShow.map(p=>(<li>{p.name} {p.number}</li>))}
         </div>
     )
 }

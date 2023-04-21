@@ -1,19 +1,22 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Filter from './components/Filter'
 import PersonForm from './components/PersonForm'
 import Persons from './components/Persons'
+import axios from 'axios'
 
 const App = () => {
-  const [persons, setPersons] = useState([
-    { name: 'Arto Hellas', phone: '9194' },
-    { name: 'james jones', phone: '9194' },
-    { name: 'kobe', phone: '9194' }
-  ]) 
+  const [persons, setPersons] = useState([]) 
   const [newName, setNewName] = useState('')
   const [newPhone, setNewPhone] = useState('')
   const [showAll, setShowAll] = useState(true)
   const [filter, setFilter] = useState('')
   const personsToShow = showAll? persons : persons.filter(p => p.name.toLowerCase().includes(filter))
+
+  useEffect(
+    () => {
+    axios.get('http://localhost:3001/persons').then(Response=>setPersons(Response.data))
+    }
+   ,[])
 
   const updateName = (e) => {
     setNewName(e.target.value)
@@ -21,8 +24,9 @@ const App = () => {
 
   const addPerson = (e) => {
     e.preventDefault()
-    const newPerson = {name:newName,phone:newPhone}
+    const newPerson = {name:newName,number:newPhone}
     console.log(newPerson)
+    console.log(persons)
     checkDuplicate(newName) === true ? alert(`${newName} is a duplicate name`) : setPersons(persons.concat(newPerson))
     setNewName('')
     setNewPhone('')
@@ -49,7 +53,7 @@ const App = () => {
       <h2>Phonebook</h2>
       <Filter handler={createFilter}/>
       <h2>add a new</h2>
-      
+
       <PersonForm 
       newName={newName} updateName={updateName}
       newPhone={newPhone} updatePhone={updatePhone}
