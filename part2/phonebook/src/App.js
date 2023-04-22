@@ -25,9 +25,17 @@ const App = () => {
   const addPerson = (e) => {
     e.preventDefault()
     const newPerson = {name:newName,number:newPhone}
-    checkDuplicate(newName) === true ? alert(`${newName} is a duplicate name`) : 
-    noteService.create(newPerson)
-    .then(response=>setPersons(persons.concat(response)))
+    if(checkDuplicate){
+      if(window.confirm(`${newName} is a already added to phonebook,replace old number with new number?`)){
+        const valueToUpdate = persons.filter(p=>p.name===newPerson.name)
+        const updateId = valueToUpdate[0].id
+        noteService.updatePhone(updateId,newPerson)
+      }
+    }
+    else{
+      noteService.create(newPerson).then(response=>setPersons(persons.concat(response)))
+    }
+
     setNewName('')
     setNewPhone('')
   }
@@ -46,8 +54,8 @@ const App = () => {
     
   }
 
-  const deletePhone = (id) => {
-    if(window.confirm("delete note?")){
+  const deletePhone = (id,name) => {
+    if(window.confirm(`delete ${name}?`)){
       noteService.deleteItem(id)
     }
     

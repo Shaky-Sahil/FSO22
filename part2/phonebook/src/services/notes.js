@@ -11,5 +11,10 @@ const create = (newPerson) => {
 const deleteItem = (id) => {
     return axios.delete(`http://localhost:3001/persons/${id}`)
 }
-const noteService = {getAll,create,deleteItem}
+
+const updatePhone = (id,newPerson) => {
+    return axios.put(`http://localhost:3001/persons/${id}`,newPerson)
+}
+
+const noteService = {getAll,create,deleteItem,updatePhone}
 export default noteService
