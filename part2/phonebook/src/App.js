@@ -46,6 +46,13 @@ const App = () => {
     
   }
 
+  const deletePhone = (id) => {
+    if(window.confirm("delete note?")){
+      noteService.deleteItem(id)
+    }
+    
+  }
+
  
   return (
     <div>
@@ -61,7 +68,7 @@ const App = () => {
       />
 
       <h2>Numbers</h2>
-      <Persons personsToShow={personsToShow}/>
+      <Persons personsToShow={personsToShow} deletePhone={deletePhone}/>
     </div>
   )
 }

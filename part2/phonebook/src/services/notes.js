@@ -7,5 +7,9 @@ const getAll = () => {
 const create = (newPerson) => {
     return axios.post('http://localhost:3001/persons',newPerson).then(Response=>Response.data)
 }
-const noteService = {getAll,create}
+
+const deleteItem = (id) => {
+    return axios.delete(`http://localhost:3001/persons/${id}`)
+}
+const noteService = {getAll,create,deleteItem}
 export default noteService
