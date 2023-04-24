@@ -12,6 +12,7 @@ const App = () => {
   const [showAll, setShowAll] = useState(true)
   const [filter, setFilter] = useState('')
   const [message,setMessage] = useState('')
+  const [isFailMsg,setIsFailMsg] = useState(false)
   const personsToShow = showAll? persons : persons.filter(p => p.name.toLowerCase().includes(filter))
 
   useEffect(
@@ -31,11 +32,17 @@ const App = () => {
       if(window.confirm(`${newName} is a already added to phonebook,replace old number with new number?`)){
         const valueToUpdate = persons.filter(p=>p.name===newPerson.name)
         const updateId = valueToUpdate[0].id
-        noteService.updatePhone(updateId,newPerson)
+        noteService.updatePhone(updateId,newPerson).catch(
+          ()=>{
+            setIsFailMsg(true)
+            setMessage(`information of ${newName} has already been removed from server`)
+            setPersons(persons.filter(p=>p.name!==newName))}
+          )
         setMessage(`updated phone of ${newName}`)
         setTimeout(() => {
         setMessage('')
-      }, 3000);
+        setIsFailMsg(false)
+      }, 5000);
       }
     }
     else{
@@ -43,7 +50,7 @@ const App = () => {
       setMessage(`added ${newName} to phonebook`)
       setTimeout(() => {
         setMessage('')
-      }, 3000);
+      }, 5000);
     }
 
     setNewName('')
@@ -72,7 +79,7 @@ const App = () => {
       setMessage(`Deleted ${name} from phonebook`)
         setTimeout(() => {
         setMessage('')
-      }, 3000);
+      }, 5000);
     }
     
   }
@@ -80,7 +87,7 @@ const App = () => {
  
   return (
     <div>
-     <Notification message={message} /> 
+     <Notification message={message} isFail={isFailMsg}/> 
       <h2>Phonebook</h2>
       <Filter handler={createFilter}/>
       <h2>add a new</h2>

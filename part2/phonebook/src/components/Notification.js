@@ -1,13 +1,21 @@
-const Notification = ({message}) => {
+const Notification = ({message,isFail}) => {
     if(message===''){
         return null
     }
-
-    return (
-        <div className="msg">
-        the message is : {message}
+    if(isFail){
+        return(
+            <div className="neg-msg">
+        {message}
         </div>
-    )
+        )
+    }
+    else{
+        return(
+            <div className="msg">
+        {message}
+        </div>
+        )
+    }
 }
 
 export default Notification

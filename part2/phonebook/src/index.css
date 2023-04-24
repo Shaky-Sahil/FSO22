@@ -7,3 +7,13 @@
   background-color: lightgreen;
   padding: 10px;
 }
+
+.neg-msg{
+  color:black;
+  border-radius: 10px;
+  border: 1.5px;
+  border-color: black;
+  border-style: groove;
+  background-color: red;
+  padding: 10px;
+}
