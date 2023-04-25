@@ -3,7 +3,7 @@ const SearchForm = ({handleSearch}) => {
         <>
         <form>
             <label>find countries</label>
-            <input on={handleSearch}></input>
+            <input onChange={handleSearch}></input>
         </form>
 
         </>

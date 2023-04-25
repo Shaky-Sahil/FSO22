@@ -1,38 +1,42 @@
 import axios from "axios"
 import SearchForm from "./components/SearchForm"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import ShowResults from "./components/ShowResults"
+import ShowCountry from "./components/ShowCountry"
 
 const App = () => {
   const [searchQuery,setSearchQuery] = useState('')
   const [results,setResults] = useState([])
 
-  const handleSearch = (e) => {
-    setSearchQuery(e.target.value)
-    axios.get(`https://restcountries.com/v3.1/name/${searchQuery}`).then(
+  useEffect(()=>{
+    const controller = new AbortController();
+    axios.get(`https://restcountries.com/v3.1/name/${searchQuery}`,
+    {signal:controller.signal}).then(
     (response) => {
-      if(response.data.length >=10){
-        console.log('too many results')
-      }
-      else{
-        //console.log(response.data)
         setResults(response.data)
-        //response.data.map((r)=>console.log(r.name))
 
-      }
     }
     ).catch(
-      ()=>console.log('not found')
+      ()=>{console.log('not found')
+      setResults([])
+    }
     )
+  },[searchQuery])
+
+  const handleSearch = (e) => {
+    setSearchQuery(e.target.value)
+    
   }
 
   return(
     <div>
       <SearchForm handleSearch={handleSearch}/>
-      <ShowResults results={results}/>
+      {results.length===1?<ShowCountry result={results[0]}/>
+      :
+      <ShowResults results={results} searchQuery={searchQuery}/>}
 
     </div>
-  )
+  ) 
 }
 
 export default App
