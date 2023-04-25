@@ -1,5 +1,6 @@
-const ShowCountry = ({result}) => {
+const ShowCountry = ({result,weather}) => {
     const languages = Object.values(result.languages)
+    console.log(weather.weather[0].icon)
     return(
         <>
         <h1>{result.name.common}</h1>
@@ -9,6 +10,9 @@ const ShowCountry = ({result}) => {
         {languages.map((l)=>(<li>{l}</li>))}
         <br/>
         <img src={result.flags.png} alt='flag'></img>
+        <div>temperature {weather.main.temp} Kelvin</div>
+        <img src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`} alt='weather'></img>
+        <div>wind {weather.wind.speed} m/s</div>
         </>
     )
 }

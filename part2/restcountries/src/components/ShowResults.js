@@ -12,6 +12,7 @@ const ShowResults = ({results,searchQuery,setResults}) => {
             <span key={r.tld}>{r.name.common}</span>
             <button onClick={()=>setResults([r])}>show</button>
             </div>)
+            
             )}
         </>
     )
