@@ -33,7 +33,7 @@ const App = () => {
       <SearchForm handleSearch={handleSearch}/>
       {results.length===1?<ShowCountry result={results[0]}/>
       :
-      <ShowResults results={results} searchQuery={searchQuery}/>}
+      <ShowResults results={results} searchQuery={searchQuery} setResults={setResults}/>}
 
     </div>
   ) 

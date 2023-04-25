@@ -1,4 +1,4 @@
-const ShowResults = ({results,searchQuery}) => {
+const ShowResults = ({results,searchQuery,setResults}) => {
     if(results.length>10){
         return(
             <>
@@ -8,7 +8,11 @@ const ShowResults = ({results,searchQuery}) => {
     }
     return(
         <>
-        {results.map((r)=><li key={r.tld}>{r.name.common}</li>)}
+        {results.map((r)=>(<div>
+            <span key={r.tld}>{r.name.common}</span>
+            <button onClick={()=>setResults([r])}>show</button>
+            </div>)
+            )}
         </>
     )
 }
