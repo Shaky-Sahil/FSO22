@@ -31,7 +31,7 @@ const App = () => {
 
   const getWeatherData = (result) => {
     const url = `https://api.openweathermap.org/data/2.5/weather?lat=${result.latlng[0]}&lon=${result.latlng[1]}&appid=${process.env.REACT_APP_API_KEY}`
-    return axios.get(url).then((r)=>setWeather(r.data))
+    return axios.get(url).then((r)=>setWeather(r.data)).catch(()=>setWeather({}))
   }
 
   return(

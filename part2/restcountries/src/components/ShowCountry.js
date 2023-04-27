@@ -1,5 +1,5 @@
 const ShowCountry = ({result,weather}) => {
-    const languages = Object.values(result.languages)
+const languages = Object.values(result.languages)
     console.log(weather.weather[0].icon)
     return(
         <>
